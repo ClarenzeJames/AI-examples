@@ -42,12 +42,31 @@ class GenomeTest(unittest.TestCase):
         spec = genome.Genome.get_gene_spec()
         gene  = genome.Genome.get_random_gene(len(spec))
         gene_dict = genome.Genome.get_gene_dict(gene,spec)
-        self.assertIn("link-reccurence",gene_dict)
+        # print(gene_dict)
+        self.assertIn("link-recurrence",gene_dict)
 
     def testGenomeToDict(self):
         spec = genome.Genome.get_gene_spec()
         dna  = genome.Genome.get_random_genome(len(spec),3)
         genome_dicts = genome.Genome.get_genome_dicts(dna,spec)
+        # print(genome_dicts)
         self.assertEqual(len(genome_dicts),3)
+
+    # test for the expanded links
+    def testExpandLinks(self):
+        links = [
+            genome.URDFLink(name="A",parent_name="None",recur=1),
+            genome.URDFLink(name="B",parent_name="A",recur=1),
+            genome.URDFLink(name="C",parent_name="B",recur=2),
+            genome.URDFLink(name="D",parent_name="C",recur=1)
+        ]
+
+        exp_links = [links[0]]
+
+        genome.Genome.expandLinks(links[0], links[0].name,links, exp_links)
+        names = [l.name+"-parent-is-"+l.parent_name for l in exp_links]
+        print(names)
+        self.assertEqual(len(exp_links), 6)
+
 
 unittest.main()
