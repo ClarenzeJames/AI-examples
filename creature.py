@@ -39,4 +39,6 @@ class Creature:
                 continue
             robot_tag.appendChild(lin.to_joint_ele(adom))
         robot_tag.setAttribute("name","pepe")
-        return robot_tag.toprettyxml()
+
+        comp_xml = '<?xml version="1.0"?>' + "\n" + robot_tag.toprettyxml()
+        return comp_xml

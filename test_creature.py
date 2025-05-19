@@ -22,7 +22,8 @@ class TestCreature(unittest.TestCase):
         c = creature.Creature(gene_count=4)
         xml_str = c.to_xml()
         with open("test.urdf","w") as f:
-            f.write('<?xml version="1.0"?>' + "\n" + xml_str)
+            # f.write('<?xml version="1.0"?>' + "\n" + xml_str)
+            f.write(xml_str)
         self.assertIsNotNone(xml_str)
 
 unittest.main()

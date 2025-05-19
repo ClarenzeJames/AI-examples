@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<robot name="pepe">
+	<link name="20">
+		<visual>
+			<geometry>
+				<cylinder length="0.5575635115382984" radius="0.24433911882589188"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="41">
+		<visual>
+			<geometry>
+				<cylinder length="0.3691617136797456" radius="0.02378925391123743"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="82">
+		<visual>
+			<geometry>
+				<cylinder length="0.36550081060899176" radius="0.5231927262268719"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="83">
+		<visual>
+			<geometry>
+				<cylinder length="0.36550081060899176" radius="0.5231927262268719"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="44">
+		<visual>
+			<geometry>
+				<cylinder length="0.3691617136797456" radius="0.02378925391123743"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="85">
+		<visual>
+			<geometry>
+				<cylinder length="0.36550081060899176" radius="0.5231927262268719"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="86">
+		<visual>
+			<geometry>
+				<cylinder length="0.36550081060899176" radius="0.5231927262268719"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="47">
+		<visual>
+			<geometry>
+				<cylinder length="0.3691617136797456" radius="0.02378925391123743"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="88">
+		<visual>
+			<geometry>
+				<cylinder length="0.36550081060899176" radius="0.5231927262268719"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="89">
+		<visual>
+			<geometry>
+				<cylinder length="0.36550081060899176" radius="0.5231927262268719"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="410">
+		<visual>
+			<geometry>
+				<cylinder length="0.3691617136797456" radius="0.02378925391123743"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="811">
+		<visual>
+			<geometry>
+				<cylinder length="0.36550081060899176" radius="0.5231927262268719"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="812">
+		<visual>
+			<geometry>
+				<cylinder length="0.36550081060899176" radius="0.5231927262268719"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="613">
+		<visual>
+			<geometry>
+				<cylinder length="0.4832879679588711" radius="0.557492260644342"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="614">
+		<visual>
+			<geometry>
+				<cylinder length="0.4832879679588711" radius="0.557492260644342"/>
+			</geometry>
+		</visual>
+	</link>
+	<joint name="41_to_0" type="revolute">
+		<parent link="0"/>
+		<child link="41"/>
+		<axis xyz="1 0 0"/>
+		<limit effort="1" lower="1" upper="0" velocity="1"/>
+		<origin rpy="5.1387182613556455 6.106939567525894 3.289660372623813" xyz="0.6203875076568423 0.8482540772305982 0.35415064776030425"/>
+	</joint>
+	<joint name="82_to_41" type="revolute">
+		<parent link="41"/>
+		<child link="82"/>
+		<axis xyz="0 1 0"/>
+		<limit effort="1" lower="1" upper="0" velocity="1"/>
+		<origin rpy="2.9974700434455626 4.049529945468553 3.0636582581320613" xyz="0.8672229911370067 0.3691246725209204 0.105126536694091"/>
+	</joint>
+	<joint name="83_to_41" type="revolute">
+		<parent link="41"/>
+		<child link="83"/>
+		<axis xyz="0 1 0"/>
+		<limit effort="1" lower="1" upper="0" velocity="1"/>
+		<origin rpy="2.9974700434455626 4.049529945468553 3.0636582581320613" xyz="0.8672229911370067 0.3691246725209204 0.105126536694091"/>
+	</joint>
+	<joint name="44_to_0" type="revolute">
+		<parent link="0"/>
+		<child link="44"/>
+		<axis xyz="1 0 0"/>
+		<limit effort="1" lower="1" upper="0" velocity="1"/>
+		<origin rpy="5.1387182613556455 6.106939567525894 3.289660372623813" xyz="0.6203875076568423 0.8482540772305982 0.35415064776030425"/>
+	</joint>
+	<joint name="85_to_44" type="revolute">
+		<parent link="44"/>
+		<child link="85"/>
+		<axis xyz="0 1 0"/>
+		<limit effort="1" lower="1" upper="0" velocity="1"/>
+		<origin rpy="2.9974700434455626 4.049529945468553 3.0636582581320613" xyz="0.8672229911370067 0.3691246725209204 0.105126536694091"/>
+	</joint>
+	<joint name="86_to_44" type="revolute">
+		<parent link="44"/>
+		<child link="86"/>
+		<axis xyz="0 1 0"/>
+		<limit effort="1" lower="1" upper="0" velocity="1"/>
+		<origin rpy="2.9974700434455626 4.049529945468553 3.0636582581320613" xyz="0.8672229911370067 0.3691246725209204 0.105126536694091"/>
+	</joint>
+	<joint name="47_to_0" type="revolute">
+		<parent link="0"/>
+		<child link="47"/>
+		<axis xyz="1 0 0"/>
+		<limit effort="1" lower="1" upper="0" velocity="1"/>
+		<origin rpy="5.1387182613556455 6.106939567525894 3.289660372623813" xyz="0.6203875076568423 0.8482540772305982 0.35415064776030425"/>
+	</joint>
+	<joint name="88_to_47" type="revolute">
+		<parent link="47"/>
+		<child link="88"/>
+		<axis xyz="0 1 0"/>
+		<limit effort="1" lower="1" upper="0" velocity="1"/>
+		<origin rpy="2.9974700434455626 4.049529945468553 3.0636582581320613" xyz="0.8672229911370067 0.3691246725209204 0.105126536694091"/>
+	</joint>
+	<joint name="89_to_47" type="revolute">
+		<parent link="47"/>
+		<child link="89"/>
+		<axis xyz="0 1 0"/>
+		<limit effort="1" lower="1" upper="0" velocity="1"/>
+		<origin rpy="2.9974700434455626 4.049529945468553 3.0636582581320613" xyz="0.8672229911370067 0.3691246725209204 0.105126536694091"/>
+	</joint>
+	<joint name="410_to_0" type="revolute">
+		<parent link="0"/>
+		<child link="410"/>
+		<axis xyz="1 0 0"/>
+		<limit effort="1" lower="1" upper="0" velocity="1"/>
+		<origin rpy="5.1387182613556455 6.106939567525894 3.289660372623813" xyz="0.6203875076568423 0.8482540772305982 0.35415064776030425"/>
+	</joint>
+	<joint name="811_to_410" type="revolute">
+		<parent link="410"/>
+		<child link="811"/>
+		<axis xyz="0 1 0"/>
+		<limit effort="1" lower="1" upper="0" velocity="1"/>
+		<origin rpy="2.9974700434455626 4.049529945468553 3.0636582581320613" xyz="0.8672229911370067 0.3691246725209204 0.105126536694091"/>
+	</joint>
+	<joint name="812_to_410" type="revolute">
+		<parent link="410"/>
+		<child link="812"/>
+		<axis xyz="0 1 0"/>
+		<limit effort="1" lower="1" upper="0" velocity="1"/>
+		<origin rpy="2.9974700434455626 4.049529945468553 3.0636582581320613" xyz="0.8672229911370067 0.3691246725209204 0.105126536694091"/>
+	</joint>
+	<joint name="613_to_0" type="revolute">
+		<parent link="0"/>
+		<child link="613"/>
+		<axis xyz="0 0 1"/>
+		<limit effort="1" lower="1" upper="0" velocity="1"/>
+		<origin rpy="2.956473060857331 1.429907566339523 4.196630329824272" xyz="0.3171921351376473 0.7936547013100724 0.9762781281913353"/>
+	</joint>
+	<joint name="614_to_0" type="revolute">
+		<parent link="0"/>
+		<child link="614"/>
+		<axis xyz="0 0 1"/>
+		<limit effort="1" lower="1" upper="0" velocity="1"/>
+		<origin rpy="2.956473060857331 1.429907566339523 4.196630329824272" xyz="0.3171921351376473 0.7936547013100724 0.9762781281913353"/>
+	</joint>
+</robot>
