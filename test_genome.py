@@ -34,7 +34,7 @@ class GenomeTest(unittest.TestCase):
     def testGeneSpecScale(self):
         spec = genome.Genome.get_gene_spec()
         gene = genome.Genome.get_random_gene(20)
-        self.assertGreater(gene[spec["link-length"]["ind"]],0)
+        self.assertGreater(gene[spec["link_length"]["ind"]],0)
 
     # test for gene and genome to dict
 
@@ -43,7 +43,7 @@ class GenomeTest(unittest.TestCase):
         gene  = genome.Genome.get_random_gene(len(spec))
         gene_dict = genome.Genome.get_gene_dict(gene,spec)
         # print(gene_dict)
-        self.assertIn("link-recurrence",gene_dict)
+        self.assertIn("link_recurrence",gene_dict)
 
     def testGenomeToDict(self):
         spec = genome.Genome.get_gene_spec()
@@ -55,10 +55,10 @@ class GenomeTest(unittest.TestCase):
     # test for the expanded links
     def testExpandLinks(self):
         links = [
-            genome.URDFLink(name="A",parent_name="None",recur=1),
-            genome.URDFLink(name="B",parent_name="A",recur=1),
-            genome.URDFLink(name="C",parent_name="B",recur=2),
-            genome.URDFLink(name="D",parent_name="C",recur=1)
+            genome.URDFLink(name="A",parent_name="None",link_recurrence=1),
+            genome.URDFLink(name="B",parent_name="A",link_recurrence=1),
+            genome.URDFLink(name="C",parent_name="B",link_recurrence=2),
+            genome.URDFLink(name="D",parent_name="C",link_recurrence=1)
         ]
 
         exp_links = [links[0]]
@@ -67,6 +67,15 @@ class GenomeTest(unittest.TestCase):
         names = [l.name+"-parent-is-"+l.parent_name for l in exp_links]
         print(names)
         self.assertEqual(len(exp_links), 6)
+
+    # test for getting link
+    def testGetLinks(self):
+        spec = genome.Genome.get_gene_spec()
+        dna = genome.Genome.get_random_genome(len(spec),3)
+        genome_dicts = genome.Genome.get_genome_dicts(dna,spec)
+        links = genome.Genome.genome_to_links(genome_dicts)
+        print(links)
+        self.assertEqual(len(links), 3)
 
 
 unittest.main()
