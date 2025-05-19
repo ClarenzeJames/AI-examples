@@ -69,7 +69,6 @@ class Genome:
         for c in children:
             for r in range(int(c.link_recurrence)):
                 sibling_ind = sibling_ind + 1
-                print(int(c.link_recurrence))
                 c_copy = copy.copy(c)
                 c_copy.parent_name = unique_parent_name
                 uniq_name = c_copy.name + str(len(exp_links))

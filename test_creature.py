@@ -26,4 +26,25 @@ class TestCreature(unittest.TestCase):
             f.write(xml_str)
         self.assertIsNotNone(xml_str)
 
+    # testing the motor
+    def testMotor(self):
+        m = creature.Motor(0.1,0.5,0.5)
+        self.assertIsNotNone(m)
+
+    def testMotorValue(self):
+        m = creature.Motor(0.1,0.5,0.5)
+        self.assertEqual(m.get_output(),1)
+    
+    def testMotorSine(self):
+        m = creature.Motor(0.6,0.5,0.5)
+        m.get_output()
+        m.get_output()
+        self.assertGreater(m.get_output(),0)
+
+    def testCreatureMotor(self):
+        c = creature.Creature(gene_count=4)
+        links = c.get_expanded_links()
+        m = c.get_motors()
+        self.assertEqual(len(links) - 1,len(m))
+
 unittest.main()
