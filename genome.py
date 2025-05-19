@@ -1,7 +1,7 @@
 import numpy as np
 import copy
 
-class Genome():
+class Genome:
     def __init__(self):
         pass
 
@@ -21,8 +21,8 @@ class Genome():
             "link_length":{"scale":1},
             "link_shape":{"scale":1},
             "link_radius":{"scale":1},
-            "link_recurrence":{"scale":1},
-            "link_mass":{"scale":4},
+            "link_recurrence":{"scale":4},
+            "link_mass":{"scale":1},
             "joint_type":{"scale":1},
             "joint_parent":{"scale":1},
             "joint_axis_xyz":{"scale":1},
@@ -65,14 +65,15 @@ class Genome():
     def expandLinks(parent_link, unique_parent_name, flat_links, exp_links):
         children = [l for l in flat_links if l.parent_name == parent_link.name]
         
-        for child in children:
-            for r in range(child.link_recurrence):
-                child_copy = copy.copy(child)
-                child_copy.parent_name = unique_parent_name
-                uniq_name = child_copy.name + str(len(exp_links))
-                child_copy.name = uniq_name
-                exp_links.append(child_copy)
-                Genome.expandLinks(child, uniq_name, flat_links, exp_links)
+        for c in children:
+            for r in range(int(c.link_recurrence)):
+                print(int(c.link_recurrence))
+                c_copy = copy.copy(c)
+                c_copy.parent_name = unique_parent_name
+                uniq_name = c_copy.name + str(len(exp_links))
+                c_copy.name = uniq_name
+                exp_links.append(c_copy)
+                Genome.expandLinks(c, uniq_name, flat_links, exp_links)
 
     # Genome to links
     @staticmethod
@@ -80,11 +81,15 @@ class Genome():
         links = []
         link_ind = 0
         parent_names = [str(link_ind)]
+
+        # add all of the links
         for gdict in genome_dicts:
             link_name = str(link_ind)
             parent_ind = gdict["joint_parent"] * len(parent_names)
             parent_name = parent_names[int(parent_ind)]
             recur = gdict["link_recurrence"]
+
+            link_ind = link_ind + 1
             link = URDFLink(name=link_name,
                             parent_name = parent_name,
                             link_recurrence = recur + 1,
