@@ -17,7 +17,7 @@ with open('test.urdf','w') as f:
     c.get_expanded_links()
     f.write(c.to_xml())
 
-cid = p.load(URDF='test.urdf')
+cid = p.loadURDF('test.urdf')
 
 p.setRealTimeSimulation(1)
 
