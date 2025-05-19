@@ -182,6 +182,8 @@ class URDFLink:
         inertial_tag.appendChild(inertia_tag)
 
         link_tag.appendChild(vis_tag)   
+        link_tag.appendChild(coll_tag)
+        link_tag.appendChild(inertial_tag)
 
         return link_tag
     
