@@ -1,6 +1,7 @@
 import unittest
 import genome
 import numpy as np
+from xml.dom.minidom import getDOMImplementation
 
 class GenomeTest(unittest.TestCase):
     def testClassExists(self):
@@ -76,6 +77,5 @@ class GenomeTest(unittest.TestCase):
         links = genome.Genome.genome_to_links(genome_dicts)
         print(links)
         self.assertEqual(len(links), 3)
-
-
+        
 unittest.main()

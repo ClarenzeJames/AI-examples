@@ -1,4 +1,5 @@
 import genome
+from xml.dom.minidom import getDOMImplementation
 
 class Creature:
     def __init__(self,gene_count):
@@ -21,3 +22,21 @@ class Creature:
         self.exp_links = exp_links
         # print(len(self.exp_links))
         return self.exp_links
+    
+    # to XML function
+    def to_xml(self):
+        self.get_expanded_links()
+        domimpl = getDOMImplementation()
+        adom = domimpl.createDocument(None, "start", None)
+        robot_tag = adom.createElement("robot")
+        for link in self.exp_links:
+            print(link)
+            robot_tag.appendChild(link.to_link_ele(adom))
+        first = True
+        for lin in self.exp_links:
+            if first:
+                first = False
+                continue
+            robot_tag.appendChild(lin.to_joint_ele(adom))
+        robot_tag.setAttribute("name","pepe")
+        return robot_tag.toprettyxml()

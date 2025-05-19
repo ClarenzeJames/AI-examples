@@ -140,3 +140,94 @@ class URDFLink:
         self.control_waveform = control_waveform
         self.control_amp = control_amp
         self.control_freq = control_freq
+
+    def to_link_ele(self,adom):
+        link_tag = adom.createElement("link")
+        link_tag.setAttribute("name", self.name)
+
+        # Visual Tag
+        vis_tag = adom.createElement("visual")
+        geom_tag = adom.createElement("geometry")
+        cyl_tag = adom.createElement("cylinder")
+        cyl_tag.setAttribute("length", str(self.link_length))
+        cyl_tag.setAttribute("radius", str(self.link_radius))
+
+        geom_tag.appendChild(cyl_tag)
+        vis_tag.appendChild(geom_tag)
+
+        # collision tag
+        coll_tag = adom.createElement("collision")
+        coll_geom_tag = adom.createElement("geometry")
+        coll_cyl_tag = adom.createElement("cylinder")
+        coll_cyl_tag.setAttribute("length", str(self.link_length))
+        coll_cyl_tag.setAttribute("radius", str(self.link_radius))
+
+        coll_geom_tag.appendChild(coll_cyl_tag)
+        coll_tag.appendChild(coll_geom_tag)
+
+        # inertial tag
+        inertial_tag = adom.createElement("inertial")
+        mass_tag = adom.createElement("mass")
+        mass = np.pi * (self.link_radius ** 2) * self.link_length
+        mass_tag.setAttribute("value", str(mass))
+        inertia_tag = adom.createElement("inertia")
+        inertia_tag.setAttribute("ixx","0.03")
+        inertia_tag.setAttribute("iyy","0.03")
+        inertia_tag.setAttribute("izz","0.03")
+        inertia_tag.setAttribute("ixy","0")
+        inertia_tag.setAttribute("ixz","0")
+        inertia_tag.setAttribute("iyx","0")
+
+        inertial_tag.appendChild(mass_tag)
+        inertial_tag.appendChild(inertia_tag)
+
+        link_tag.appendChild(vis_tag)   
+
+        return link_tag
+    
+    def to_joint_ele(self,adom):
+        joint_tag = adom.createElement("joint")
+        joint_tag.setAttribute("name", self.name + "_to_" + self.parent_name)
+        if self.joint_type >= 0.5:
+            joint_tag.setAttribute("type", "revolute")
+        else:
+            joint_tag.setAttribute("type", "fixed")
+
+        parent_tag = adom.createElement("parent")
+        parent_tag.setAttribute("link", self.parent_name)
+        child_tag = adom.createElement("child")
+        child_tag.setAttribute("link", self.name)
+        axis_tag = adom.createElement("axis")
+        if self.joint_axis_xyz <= 0.33:
+            axis_tag.setAttribute("xyz", "1 0 0")
+        elif self.joint_axis_xyz > 0.33 and self.joint_axis_xyz <= 0.66:
+            axis_tag.setAttribute("xyz", "0 1 0")
+        else:
+            axis_tag.setAttribute("xyz", "0 0 1")
+        limit_tag = adom.createElement("limit")
+        limit_tag.setAttribute("effort", "1")
+        limit_tag.setAttribute("lower", "1")
+        limit_tag.setAttribute("upper", "0")
+        limit_tag.setAttribute("velocity", "1")
+        origin_tag = adom.createElement("origin")
+        rpy = str(self.joint_origin_rpy_1) + " " + str(self.joint_origin_rpy_2) + " " + str(self.joint_origin_rpy_3)
+        origin_tag.setAttribute("rpy", rpy)
+        xyz = str(self.joint_origin_xyz_1) + " " + str(self.joint_origin_xyz_2) + " " + str(self.joint_origin_xyz_3)
+        origin_tag.setAttribute("xyz", xyz)
+
+        joint_tag.appendChild(parent_tag)
+        joint_tag.appendChild(child_tag)
+        joint_tag.appendChild(axis_tag)
+        joint_tag.appendChild(limit_tag)
+        joint_tag.appendChild(origin_tag)
+
+        return joint_tag
+    
+    
+    def to_link_xml(self,adom):
+        ele = self.to_link_ele(adom)
+        return ele.toprettyxml()
+
+    def to_joint_xml(self,adom):
+        ele = self.to_joint_ele(adom)
+        return ele.toprettyxml()
