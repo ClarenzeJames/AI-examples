@@ -13,14 +13,12 @@ class Creature:
 
     def get_expanded_links(self):
         self.get_flat_links()
-        # print(len(self.get_flat_links()))
         exp_links = [self.flat_links[0]]
         genome.Genome.expandLinks(self.flat_links[0], 
                                   self.flat_links[0].name,
                                   self.flat_links, 
                                   exp_links)
         self.exp_links = exp_links
-        # print(len(self.exp_links))
         return self.exp_links
     
     # to XML function
@@ -30,7 +28,6 @@ class Creature:
         adom = domimpl.createDocument(None, "start", None)
         robot_tag = adom.createElement("robot")
         for link in self.exp_links:
-            print(link)
             robot_tag.appendChild(link.to_link_ele(adom))
         first = True
         for lin in self.exp_links:

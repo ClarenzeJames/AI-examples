@@ -64,15 +64,18 @@ class Genome:
     @staticmethod
     def expandLinks(parent_link, unique_parent_name, flat_links, exp_links):
         children = [l for l in flat_links if l.parent_name == parent_link.name]
+        sibling_ind = 1
         
         for c in children:
             for r in range(int(c.link_recurrence)):
+                sibling_ind = sibling_ind + 1
                 print(int(c.link_recurrence))
                 c_copy = copy.copy(c)
                 c_copy.parent_name = unique_parent_name
                 uniq_name = c_copy.name + str(len(exp_links))
                 c_copy.name = uniq_name
                 exp_links.append(c_copy)
+                c_copy.sibling_ind = sibling_ind
                 Genome.expandLinks(c, uniq_name, flat_links, exp_links)
 
     # Genome to links
@@ -140,6 +143,7 @@ class URDFLink:
         self.control_waveform = control_waveform
         self.control_amp = control_amp
         self.control_freq = control_freq
+        self.sibling_ind = 1
 
     def to_link_ele(self,adom):
         link_tag = adom.createElement("link")
@@ -212,7 +216,9 @@ class URDFLink:
         limit_tag.setAttribute("upper", "0")
         limit_tag.setAttribute("velocity", "1")
         origin_tag = adom.createElement("origin")
-        rpy = str(self.joint_origin_rpy_1) + " " + str(self.joint_origin_rpy_2) + " " + str(self.joint_origin_rpy_3)
+        
+        rpy_1 = self.joint_origin_rpy_1 * self.sibling_ind
+        rpy = str(rpy_1) + " " + str(self.joint_origin_rpy_2) + " " + str(self.joint_origin_rpy_3)
         origin_tag.setAttribute("rpy", rpy)
         xyz = str(self.joint_origin_xyz_1) + " " + str(self.joint_origin_xyz_2) + " " + str(self.joint_origin_xyz_3)
         origin_tag.setAttribute("xyz", xyz)
@@ -225,7 +231,7 @@ class URDFLink:
 
         return joint_tag
     
-    
+
     def to_link_xml(self,adom):
         ele = self.to_link_ele(adom)
         return ele.toprettyxml()
