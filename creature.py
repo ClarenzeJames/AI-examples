@@ -38,6 +38,10 @@ class Creature:
         self.dna = genome.Genome.get_random_genome(len(self.spec),gene_count)
         self.flat_links = None
         self.motors = None
+        self.get_flat_links()
+        self.get_expanded_links()
+        self.start_position = None
+        self.last_position = None
 
     def get_flat_links(self):
         genome_dicts = genome.Genome.get_genome_dicts(self.dna,self.spec)
@@ -66,6 +70,12 @@ class Creature:
                 motors.append(m)
             self.motors = motors
         return self.motors
+    
+    def update_position(self, pos):
+        if self.start_position == None:
+            self.start_position = pos
+        else: 
+            self.last_position = pos
     
     # to XML function
     def to_xml(self):
