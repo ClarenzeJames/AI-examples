@@ -2,8 +2,9 @@ import pybullet as p
 import creature
 
 class Simulation():
-    def __init__(self):
+    def __init__(self, sim_id=0):
         self.physicsClientId = p.connect(p.DIRECT)
+        self.sim_id = sim_id
 
     def run_creature(self, cr, iteration=2400): # physics engine runs at 240fps, this is 10s
         pid = self.physicsClientId
@@ -13,7 +14,7 @@ class Simulation():
         floor = p.createMultiBody(plane_shape,plane_shape, physicsClientId = pid)
         p.setGravity(0,0,-10,physicsClientId = pid)
 
-        xml_file = 'temp.urdf'
+        xml_file = 'temp' + str(self.sim_id) + '.urdf'
         xml_str = cr.to_xml()
         with open(xml_file,'w') as f:
             f.write(xml_str)

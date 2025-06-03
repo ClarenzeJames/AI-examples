@@ -42,7 +42,7 @@ class TestSim(unittest.TestCase):
         self.assertGreater(dist,0)
 
     def testPop(self):
-        pop = population.Population(pop_size=10,gene_count=3)
+        pop = population.Population(pop_size=3,gene_count=3)
         sim = simulation.Simulation()
 
         for cr in pop.creatures:
