@@ -84,4 +84,3 @@ class ThreadedSim():
                     # and now put those creatures back into the main
                     new_creatures.extend(creatures)
             pop.creatures = new_creatures
-
