@@ -1,5 +1,6 @@
 import pybullet as p
 import creature
+from multiprocessing import Pool
 
 class Simulation():
     def __init__(self, sim_id=0):
@@ -44,6 +45,43 @@ class Simulation():
                                     physicsClientId = self.physicsClientId,
                                     controlMode=p.VELOCITY_CONTROL,
                                     targetVelocity=m.get_output(),
-                                    force = 5,
-                                    
-                                    )
+                                    force = 5)
+            
+class ThreadedSim():
+    def __init__(self, pool_size):
+        self.sims = [Simulation(i) for i in range(pool_size)]
+
+    @staticmethod
+    def static_run_creature(sim, cr, iterations):
+        sim.run_creature(cr, iterations)
+        return cr
+    
+    def eval_population(self, pop, iterations):
+        pool_args = []
+        start_ind = 0
+        pool_size = len(self.sims)
+        while start_ind < len(pop.creatures):
+            this_pool_args = []
+            for i in range(start_ind, start_ind + pool_size):
+                if i == len(pop.creatures): #the end
+                    break
+                # work out the sim ind
+                sim_ind = i % len(self.sims)
+                this_pool_args.append([
+                    self.sims[sim_ind],
+                    pop.creatures[i],
+                    iterations
+                ])
+            
+            pool_args.append(this_pool_args)
+            start_ind = start_ind + pool_size
+
+            new_creatures = []
+            for pool_argset in pool_args:
+                with Pool(pool_size) as p:
+                    #it works on a copy of the creatres, so receives them
+                    creatures = p.starmap(ThreadedSim.static_run_creature,pool_argset)
+                    # and now put those creatures back into the main
+                    new_creatures.extend(creatures)
+            pop.creatures = new_creatures
+
