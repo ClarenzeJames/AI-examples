@@ -43,6 +43,15 @@ class Creature:
         self.start_position = None
         self.last_position = None
 
+    def set_dna(self, dna):
+        self.dna = dna
+        self.flat_links = None
+        self.motors = None
+        self.get_flat_links()
+        self.get_expanded_links()
+        self.start_position = None
+        self.last_position = None
+
     def get_flat_links(self):
         genome_dicts = genome.Genome.get_genome_dicts(self.dna,self.spec)
         self.flat_links = genome.Genome.genome_to_links(genome_dicts)
