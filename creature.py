@@ -42,6 +42,7 @@ class Creature:
         self.get_expanded_links()
         self.start_position = None
         self.last_position = None
+        self.dist = 0
 
     def set_dna(self, dna):
         self.dna = dna
@@ -51,6 +52,7 @@ class Creature:
         self.get_expanded_links()
         self.start_position = None
         self.last_position = None
+        self.dist = 0
 
     def get_flat_links(self):
         genome_dicts = genome.Genome.get_genome_dicts(self.dna,self.spec)
@@ -81,15 +83,25 @@ class Creature:
         return self.motors
     
     def update_position(self, pos):
+        if self.last_position != None:
+            p1 = np.array(self.last_position)
+            p2 = np.array(pos)
+            dist = np.linalg.norm(p1-p2)
+            self.dist = self.dist + dist
+
         if self.start_position == None:
             self.start_position = pos
         else: 
             self.last_position = pos
 
     def get_distance_travelled(self):
-        p1 = np.array(self.start_position)
-        p2 = np.array(self.last_position)
-        return np.linalg.norm(p1-p2)
+        # if self.start_position is None or self.last_position is None:
+        #     return 0
+        # p1 = np.array(self.start_position)
+        # p2 = np.array(self.last_position)
+        # dist = np.linalg.norm(p1-p2)
+        # return dist
+        return self.dist
     
     # to XML function
     def to_xml(self):
