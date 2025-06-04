@@ -159,6 +159,32 @@ class Genome:
             gene = Genome.get_random_gene(len(genes[0]))
             genes = np.append(genes, [gene], axis=0)
         return genes
+    
+    @staticmethod
+    def to_csv(dna, csv_file):
+        csv_str = ""
+        for gene in dna:
+            for val in gene:
+                csv_str  = csv_str + str(val) + ","
+            csv_str = csv_str + '\n'
+        with open("elites/" + csv_file,'w') as f:
+            f.write(csv_str)
+
+    @staticmethod
+    def from_csv(filename):
+        csv_str = ""
+        with open("elites/" + filename) as f:
+            csv_str = f.read()
+
+        dna = []
+        lines = csv_str.split('\n')
+        for line in lines:
+            vals = line.split(',')
+            gene = [float(v) for v in vals if v != '']
+            if len(gene) > 0:
+                dna.append(gene)
+        return dna
+
 
 
 class URDFLink:
